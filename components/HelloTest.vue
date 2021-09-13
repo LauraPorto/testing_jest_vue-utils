@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import NuxtLogo from '../components/NuxtLogo.vue'
 export default {
     name: 'HelloTest',
@@ -45,7 +45,8 @@ export default {
         ...mapState(['list'])
     },
     methods: {
-        // ...mapMutations('setList'),
+         ...mapMutations(['setList']),
+         ...mapActions(['setList']),
         counter () {
             try {
               return this.count ++  

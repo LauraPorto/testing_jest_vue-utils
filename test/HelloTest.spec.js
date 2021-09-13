@@ -8,18 +8,18 @@ localVue.use(Vuex)
 
 describe('HelloTest', () => {
 
-    // let store
-    // beforeEach(() => {
-    //     store = new Vuex.Store({
-    //         modules: {
-    //             store: {
-    //                 state: {
-    //                     list
-    //                 }
-    //             }
-    //         }
-    //     })
-    // })
+    let store
+    beforeEach(() => {
+        store = new Vuex.Store({
+           state: {
+                list: []
+            }, 
+            mutations: {
+                setList () {}
+            }
+        })
+    })
+    
 
   test('is a Vue instance', () => {
     const wrapper = shallowMount(HelloTest)
@@ -89,12 +89,21 @@ describe('HelloTest', () => {
     expect(wrapper.find('counter')).toBeTruthy()
   })
 
-//   test('counter method exists', () => {
-//     const wrapper = shallowMount(HelloTest, {
-//         store,
-//         localVue
-//     })
-//     expect(wrapper)
-//   })
+  test('store is loaded', () => {
+    const wrapper = shallowMount(HelloTest, {
+        localVue,
+        store
+    })
+    store.state.list.push({count: 1, name: 'Olga'})
+    expect(wrapper.vm.list).toStrictEqual([{count: 1, name: 'Olga'}])
+  })
+  test('store is working', () => {
+    const wrapper = shallowMount(HelloTest, {
+        store,
+        localVue
+    })
+    store.mutations.setList([{count: 1, name: 'Olga'}])
+    expect(wrapper.vm.list).toStrictEqual([{count: 1, name: 'Olga'}])
+  })
 })
  
